@@ -19,6 +19,10 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-fugitive'
 Plugin 'webdevel/tabulous'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'szw/vim-tags'
+Plugin 'majutsushi/tagbar'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()
 
@@ -90,3 +94,14 @@ autocmd FileType h,hpp,c,cpp nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType h,hpp,c,cpp vnoremap <buffer><Leader>cf :ClangFormat<CR>
 nmap <Leader>C :ClangFormatAutoToggle<CR>
 
+"tagbar
+nmap <F8> :TagbarToggle<CR>
+
+"fix for ctags
+nnoremap <c-]> g<c-]> 
+vnoremap <c-]> g<c-]> 
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   "rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview('up', 'ctrl-/'), <bang>0)
