@@ -23,6 +23,8 @@ Plugin 'szw/vim-tags'
 Plugin 'majutsushi/tagbar'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'voldikss/vim-floaterm'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 
@@ -89,6 +91,9 @@ augroup END
 :let Tex_FoldedEnvironments=""
 :let Tex_FoldedMisc=""
 
+"vim-fugitive
+nmap <leader>g :Git 
+
 "clang-format
 autocmd FileType h,hpp,c,cpp nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType h,hpp,c,cpp vnoremap <buffer><Leader>cf :ClangFormat<CR>
@@ -101,7 +106,16 @@ nmap <F8> :TagbarToggle<CR>
 nnoremap <c-]> g<c-]> 
 vnoremap <c-]> g<c-]> 
 
+"fzf 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
   \   fzf#vim#with_preview('up', 'ctrl-/'), <bang>0)
+nmap <leader>f :Rg<CR>
+
+" float term
+let g:floaterm_autoclose = 1
+
+"vim-gitgutter
+highlight clear SignColumn
+set updatetime=100
